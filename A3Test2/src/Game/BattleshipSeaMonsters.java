@@ -86,8 +86,8 @@ public class BattleshipSeaMonsters {
 		frame.setLayout(null);
 		frame.setIconImage(LGO.getImage());
 
-		// the button
-		Button = new JButton("Quite");
+		// the Quit button
+		Button = new JButton("Quit");
 		Button.setBounds(940, 550, 300, 50);
 		Button.setFont(new Font("Stencil", Font.PLAIN, 30));
 		Button.addActionListener(new ActionListener() {
@@ -161,6 +161,7 @@ public class BattleshipSeaMonsters {
 		CLabel.setFont(new Font("Stencil", Font.PLAIN, 40));
 
 		for (int i = 0; i < 10; i++) {
+
 			for (int j = 0; j < 10; j++) {
 				buttons[i][j] = new JButton();
 				button_panel.add(buttons[i][j]);
@@ -196,7 +197,7 @@ public class BattleshipSeaMonsters {
 												File killsound = new File("Battleship Audio/Rocks.wav");
 												PlaySound(killsound);
 												ALabel.setText("X X X X X");
-												Label2.setText("My sank my Aircraft Crarrier!");
+												Label2.setText("You sank my Aircraft Crarrier!");
 												frame.setVisible(false);
 												GameOver window = new GameOver();
 												window.showWindow();
@@ -205,25 +206,25 @@ public class BattleshipSeaMonsters {
 												File killsound = new File("Battleship Audio/Rocks.wav");
 												PlaySound(killsound);
 												BLabel.setText("X X X X");
-												Label2.setText("My sank my Battleship!");
+												Label2.setText("You sank my Battleship!");
 												score = x + 8;
 											} else if (kill == 3) {
 												File killsound = new File("Battleship Audio/Rocks.wav");
 												PlaySound(killsound);
 												DLabel.setText("X X X");
-												Label2.setText("My sank my Destroyer!");
+												Label2.setText("You sank my Destroyer!");
 												score = x + 6;
 											} else if (kill == 2) {
 												File killsound = new File("Battleship Audio/Rocks.wav");
 												PlaySound(killsound);
 												SLabel.setText("X X X");
-												Label2.setText("My sank my Submarine!");
+												Label2.setText("You sank my Submarine!");
 												score = x + 6;
 											} else if (kill == 1) {
 												File killsound = new File("Battleship Audio/Rocks.wav");
 												PlaySound(killsound);
 												PLabel.setText("X X");
-												Label2.setText("My sank my Patrol Boat!");
+												Label2.setText("You sank my Patrol Boat!");
 												score = x + 4;
 											}
 											ScLabel.setText(String.valueOf(score));
@@ -244,10 +245,17 @@ public class BattleshipSeaMonsters {
 
 											buttons[i][j].setText("C");
 											label.setText("Cetus hit!");
+											Label2.setText("All ships revived!");
 											CLabel.setText("X");
+											int x = kill;
+											kill = x * 0;
+											ALabel.setText("");
+											BLabel.setText("");
+											DLabel.setText("");
+											SLabel.setText("");
+											PLabel.setText("");
 											// #method for ship placement//
 											Formships(X, Y);
-
 											moves++;
 											MLabel.setText(String.valueOf(moves));
 
@@ -264,6 +272,7 @@ public class BattleshipSeaMonsters {
 				buttons[i][j].setText(String.valueOf(board[i][j]));
 
 			}
+
 		}
 
 		////// constructing the frame/////
@@ -279,7 +288,7 @@ public class BattleshipSeaMonsters {
 		frame.add(Mcontainer); // moves panel
 		frame.add(Scontainer); // score panel
 		frame.add(button_panel); // battleship board
-		frame.add(Button); // Quite button
+		frame.add(Button); // Quit button
 		frame.add(myLabel); // game background image
 		frame.setResizable(false);
 		frame.setVisible(true);
@@ -309,11 +318,11 @@ public class BattleshipSeaMonsters {
 				if (board[i][j] == -3) {
 					buttons[i][j].setText("");
 				} else if (board[i][j] == -2) {
-					buttons[i][j].setText("C");
+					buttons[i][j].setText("C");// cetus monster
 					board_output = -2;
 					Cetus[i][j] = 1;
 				} else if (board[i][j] == -1) {
-					buttons[i][j].setText("K");
+					buttons[i][j].setText("K");// kraken
 					board_output = -1;
 					Kraken[i][j] = 1;
 				} else if (board[i][j] == 0) {
@@ -323,7 +332,7 @@ public class BattleshipSeaMonsters {
 					Kraken[i][j] = 0;
 					Cetus[i][j] = 0;
 				} else if (board[i][j] == 1) {
-					buttons[i][j].setText("H");
+					buttons[i][j].setText("H");// hit
 					board_output = 1;
 					ships[i][j] = 1;
 				}
@@ -334,11 +343,11 @@ public class BattleshipSeaMonsters {
 
 	public static void Formships(int X, int Y) {
 
-		int shipLength = shipsLengths[4];
+		int shipLength = shipsLengths[4];// 0-*
 
 		for (int i = 0; i <= shipLength;) {
 			X = random.nextInt(10);
-			Y = random.nextInt(10);
+			Y = random.nextInt(10); // i0: X=2 & Y=3,..., i5...
 
 			if ((X >= 0 && X < 10) && (Y >= 0 && Y < 10) && (board[X][Y] == -3)) {
 				ships[X][Y] = 1;
